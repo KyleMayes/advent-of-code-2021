@@ -149,7 +149,10 @@ class Tile<T> : Cloneable {
         .append(cells)
         .toHashCode()
 
-    override fun toString() = rows().joinToString { it.joinToString() }
+    override fun toString(): String {
+        val rows = rows().joinToString { "[${it.joinToString()}]" }
+        return "Tile($rows)"
+    }
 }
 
 /** Returns these strings as a tile of characters where each string is a row. */
