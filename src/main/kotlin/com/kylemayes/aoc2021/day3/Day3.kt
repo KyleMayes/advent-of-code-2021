@@ -31,13 +31,13 @@ class Day3 : Solution<ParsedInput> {
         return gamma * epsilon
     }
 
-    override fun solvePart2(input: ParsedInput): Long {
+    override fun solvePart2(input: ParsedInput): Int {
         val o2 = getRating(input.toMutableList(), '0', '1')
         val co2 = getRating(input.toMutableList(), '1', '0')
         return o2 * co2
     }
 
-    private fun getRating(numbers: MutableList<String>, top: Char, bottom: Char): Long {
+    private fun getRating(numbers: MutableList<String>, top: Char, bottom: Char): Int {
         var index = 0
 
         while (numbers.size > 1) {
@@ -50,7 +50,7 @@ class Day3 : Solution<ParsedInput> {
             index += 1
         }
 
-        return numbers[0].toLong(2)
+        return numbers[0].toInt(2)
     }
 }
 
