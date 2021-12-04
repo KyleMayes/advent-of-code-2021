@@ -78,6 +78,10 @@ class Tile<T> : Cloneable {
     // Transforms
     // ===========================================
 
+    /** Maps this tile into a new tile. */
+    fun <U> map(transform: (T) -> U): Tile<U> =
+        Tile(bounds.width, bounds.height, cells.map(transform))
+
     /** Merges this tile and the supplied tile into a new tile horizontally. */
     fun mergeX(right: Tile<T>): Tile<T> {
         assert(bounds.height == right.bounds.height) { "Tile heights are not equal." }
