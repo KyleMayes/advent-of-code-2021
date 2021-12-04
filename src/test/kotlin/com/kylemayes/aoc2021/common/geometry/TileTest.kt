@@ -3,6 +3,7 @@ package com.kylemayes.aoc2021.common.geometry
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.lang.NumberFormatException
 
 class TileTest {
     @Test
@@ -188,7 +189,7 @@ class TileTest {
     }
 
     @Test
-    fun toTile() {
+    fun toCharTile() {
         assertThrows<AssertionError> { listOf<String>().toTile() }
         assertThrows<AssertionError> { "".toTile() }
         assertThrows<AssertionError> { "\n".toTile() }
@@ -206,5 +207,26 @@ class TileTest {
         assertEquals('d', six[Point(0, 1)])
         assertEquals('e', six[Point(1, 1)])
         assertEquals('f', six[Point(2, 1)])
+    }
+
+    @Test
+    fun toIntTile() {
+        assertThrows<AssertionError> { listOf<String>().toTile { it.toInt() } }
+        assertThrows<NumberFormatException> { "".toTile { it.toInt() } }
+        assertThrows<NumberFormatException> { "\n".toTile { it.toInt() } }
+        assertThrows<AssertionError> { "1\n2 3".toTile { it.toInt() } }
+
+        val one = "1".toTile { it.toInt() }
+        assertEquals(Rectangle(Point(0, 0), Point(0, 0)), one.bounds)
+        assertEquals(1, one[Point(0, 0)])
+
+        val six = "1 2 3\n4 5 6".toTile { it.toInt() }
+        assertEquals(Rectangle(Point(0, 0), Point(2, 1)), six.bounds)
+        assertEquals(1, six[Point(0, 0)])
+        assertEquals(2, six[Point(1, 0)])
+        assertEquals(3, six[Point(2, 0)])
+        assertEquals(4, six[Point(0, 1)])
+        assertEquals(5, six[Point(1, 1)])
+        assertEquals(6, six[Point(2, 1)])
     }
 }

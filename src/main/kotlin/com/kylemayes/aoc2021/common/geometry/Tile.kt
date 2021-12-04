@@ -16,6 +16,17 @@ class Tile<T> : Cloneable {
         this.cells = cells.toMutableList()
     }
 
+    constructor(tile: List<List<T>>) {
+        assert(tile.isNotEmpty() && tile[0].isNotEmpty())
+
+        val width = tile[0].size
+        val height = tile.size
+        assert(tile.all { it.size == width })
+
+        bounds = Rectangle(Point(0, 0), Point(width - 1, height - 1))
+        this.cells = MutableList(width * height) { tile[it / width][it % width] }
+    }
+
     constructor(width: Int, height: Int, cell: (point: Point) -> T) : this(
         width,
         height,
@@ -171,4 +182,22 @@ fun List<String>.toTile(): Tile<Char> {
 }
 
 /** Returns this string as a tile of characters where each line is a row. */
-fun String.toTile(): Tile<Char> = split("\n").toTile()
+fun String.toTile(): Tile<Char> =
+    split("\n").toTile()
+
+/** Returns these strings as a tile where each string is a row of values. */
+fun <T> List<String>.toTile(separator: Regex = Regex("\\s+"), transform: (String) -> T): Tile<T> {
+    val values = this.map { it.split(separator).map(transform) }
+
+    assert(size > 0 && values[0].isNotEmpty())
+
+    val width = values[0].size
+    val height = size
+    assert(values.all { it.size == width })
+
+    return Tile(width, height) { values[it.y][it.x] }
+}
+
+/** Returns this string as a tile where each line is a row of values. */
+fun <T> String.toTile(separator: Regex = Regex("\\s+"), transform: (String) -> T): Tile<T> =
+    split("\n").toTile(separator, transform)
