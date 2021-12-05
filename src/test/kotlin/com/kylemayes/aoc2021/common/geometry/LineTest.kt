@@ -3,29 +3,34 @@ package com.kylemayes.aoc2021.common.geometry
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class RayTest {
+class LineTest {
     @Test
     fun points() {
-        val get = { a: Point, b: Point -> Ray(a, b).points().take(3).toList() }
+        val get = { a: Point, b: Point -> Line(a, b).points() }
 
         assertEquals(
             listOf(Point(0, 0), Point(1, 0), Point(2, 0)),
-            get(Point(0, 0), Point(1, 0)),
+            get(Point(0, 0), Point(2, 0)),
         )
 
         assertEquals(
             listOf(Point(0, 0), Point(-1, 0), Point(-2, 0)),
-            get(Point(0, 0), Point(-1, 0)),
+            get(Point(0, 0), Point(-2, 0)),
         )
 
         assertEquals(
             listOf(Point(0, 0), Point(0, 1), Point(0, 2)),
-            get(Point(0, 0), Point(0, 1)),
+            get(Point(0, 0), Point(0, 2)),
         )
 
         assertEquals(
             listOf(Point(0, 0), Point(0, -1), Point(0, -2)),
-            get(Point(0, 0), Point(0, -1)),
+            get(Point(0, 0), Point(0, -2)),
+        )
+
+        assertEquals(
+            listOf(Point(0, 0), Point(1, 1), Point(2, 2)),
+            get(Point(0, 0), Point(2, 2)),
         )
 
         assertEquals(
@@ -51,7 +56,7 @@ class RayTest {
 
     @Test
     fun stringify() {
-        val ray = Ray(Point(0, 0), Point(2, 2))
-        assertEquals("Ray((0, 0) → (1, 1) [45.0°])", ray.toString())
+        val line = Line(Point(0, 0), Point(2, 2))
+        assertEquals("Line((0, 0) → (2, 2))", line.toString())
     }
 }
