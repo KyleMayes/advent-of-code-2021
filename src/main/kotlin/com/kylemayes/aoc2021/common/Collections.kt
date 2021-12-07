@@ -1,5 +1,11 @@
 package com.kylemayes.aoc2021.common
 
-/** Indexes into this list with a index modulo the size of this list. */
-fun <T> List<T>.getMod(index: Int): T =
-    this[Math.floorMod(index, size)]
+/** Gets an item in this list with a wrapping index. */
+fun <T> List<T>.getMod(index: Int): T {
+    return this[Math.floorMod(index, size)]
+}
+
+/** Sets an item in this list with a wrapping index. */
+fun <T> MutableList<T>.setMod(index: Int, item: T) {
+    this[Math.floorMod(index, size)] = item
+}
