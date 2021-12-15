@@ -41,7 +41,11 @@ class Tile<T> : Cloneable {
     // ===========================================
 
     fun getOrNull(point: Point): T? {
-        return cells.getOrNull((point.y * bounds.width) + point.x)
+        return if (bounds.contains(point)) {
+            cells.getOrNull((point.y * bounds.width) + point.x)
+        } else {
+            null
+        }
     }
 
     operator fun get(point: Point): T {
@@ -57,6 +61,14 @@ class Tile<T> : Cloneable {
     /** Returns a sequence of the entries in this tile. */
     fun entries(): Sequence<Pair<Point, T>> =
         bounds.points().map { it to this[it] }
+
+    /** Returns the neighbors of an entry in this tile. */
+    fun neighbors(point: Point, diagonal: Boolean = true): List<Pair<Point, T>> {
+        assert(bounds.contains(point)) { "$point outside of tile bounds ($bounds)." }
+        return point
+            .neighbors(diagonal)
+            .mapNotNull { n -> getOrNull(n)?.let { v -> n to v } }
+    }
 
     /** Returns this tile as a string where each row is a line and each value is a character. */
     fun render(render: (value: T) -> Char): String =

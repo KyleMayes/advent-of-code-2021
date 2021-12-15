@@ -52,6 +52,7 @@ class TileTest {
         assertThrows<AssertionError> { six[Point(0, -1)] }
         assertThrows<AssertionError> { six[Point(-1, 0)] }
         assertThrows<AssertionError> { six[Point(-1, -1)] }
+        assertThrows<AssertionError> { six[Point(-3, 6)] }
 
         assertEquals(Rectangle(Point(0, 0), Point(2, 1)), six.bounds)
         assertEquals('a', six[Point(0, 0)])
@@ -76,6 +77,42 @@ class TileTest {
                 Pair(Point(2, 1), 'f'),
             ),
             six.entries().toList(),
+        )
+
+        assertEquals(
+            setOf<Pair<Point, Char>>(),
+            one.neighbors(Point(0, 0)).toSet(),
+        )
+
+        assertEquals(
+            setOf(
+                Point(1, 0) to 'b',
+                Point(0, 1) to 'd',
+                Point(1, 1) to 'e',
+            ),
+            six.neighbors(Point(0, 0)).toSet(),
+        )
+
+        assertEquals(
+            setOf(
+                Point(0, 0) to 'a',
+                Point(2, 0) to 'c',
+                Point(0, 1) to 'd',
+                Point(1, 1) to 'e',
+                Point(2, 1) to 'f',
+            ),
+            six.neighbors(Point(1, 0)).toSet(),
+        )
+
+        assertEquals(
+            setOf(
+                Point(0, 0) to 'a',
+                Point(1, 0) to 'b',
+                Point(2, 0) to 'c',
+                Point(0, 1) to 'd',
+                Point(2, 1) to 'f',
+            ),
+            six.neighbors(Point(1, 1)).toSet(),
         )
 
         assertEquals("a", one.render { it })

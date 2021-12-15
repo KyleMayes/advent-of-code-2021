@@ -47,6 +47,14 @@ fun <T> Field<T>.bounds(): Rectangle? {
     return Rectangle(Point(minX, minY), Point(maxX, maxY))
 }
 
+/** Returns the neighbors of an entry in this field. */
+fun <T> Field<T>.neighbors(
+    point: Point,
+    diagonal: Boolean = true,
+): List<Pair<Point, T>> = point
+    .neighbors(diagonal)
+    .mapNotNull { n -> this[n]?.let { v -> n to v } }
+
 /** Returns this field as a string where each row is a line and each value is a character. */
 fun <T> Field<T>.render(
     default: Char = ' ',
