@@ -3,6 +3,7 @@ package com.kylemayes.aoc2021
 import com.kylemayes.aoc2021.common.ResourceInput
 import com.kylemayes.aoc2021.common.Solution
 import com.kylemayes.aoc2021.day1.Day1
+import com.kylemayes.aoc2021.day10.Day10
 import com.kylemayes.aoc2021.day2.Day2
 import com.kylemayes.aoc2021.day3.Day3
 import com.kylemayes.aoc2021.day4.Day4
@@ -30,6 +31,7 @@ class SolutionTest {
         Arguments.of("day7.txt", Day7(), 349812, 99763899),
         Arguments.of("day8.txt", Day8(), 421, 986163),
         Arguments.of("day9.txt", Day9(), 496, 902880),
+        Arguments.of("day10.txt", Day10(), 345441L, 3235371166L),
     )
 
     @ParameterizedTest
