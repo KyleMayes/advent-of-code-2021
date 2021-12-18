@@ -35,7 +35,14 @@ fun <I> solve(create: () -> Solution<I>, vararg inputs: Input) {
             val result: Any
             val millis = measureTimeMillis { result = solve(solution.parse(input)) }
             print(t.bold(t.blue("Part ${i + 1}: ")))
-            print(t.bold(t.yellow("$result ")))
+
+            val string = result.toString()
+            if (string.contains('\n')) {
+                print(t.bold(t.yellow("\n$string\n")))
+            } else {
+                print(t.bold(t.yellow("$string ")))
+            }
+
             println(t.bold(t.blue("(${millis / 1000.0}s)")))
         }
     }
