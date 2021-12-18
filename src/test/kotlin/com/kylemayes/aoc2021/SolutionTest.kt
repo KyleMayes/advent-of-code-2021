@@ -6,6 +6,7 @@ import com.kylemayes.aoc2021.day1.Day1
 import com.kylemayes.aoc2021.day10.Day10
 import com.kylemayes.aoc2021.day11.Day11
 import com.kylemayes.aoc2021.day12.Day12
+import com.kylemayes.aoc2021.day13.Day13
 import com.kylemayes.aoc2021.day2.Day2
 import com.kylemayes.aoc2021.day3.Day3
 import com.kylemayes.aoc2021.day4.Day4
@@ -20,6 +21,16 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
+
+private const val DAY13P2 =
+    """
+####..##...##..#..#.###..####.#..#.####.
+#....#..#.#..#.#..#.#..#....#.#..#.#....
+###..#..#.#....#..#.#..#...#..####.###..
+#....####.#.##.#..#.###...#...#..#.#....
+#....#..#.#..#.#..#.#.#..#....#..#.#....
+#....#..#..###..##..#..#.####.#..#.####.
+    """
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SolutionTest {
@@ -36,6 +47,7 @@ class SolutionTest {
         Arguments.of("day10.txt", Day10(), 345441L, 3235371166L),
         Arguments.of("day11.txt", Day11(), 1694, 346),
         Arguments.of("day12.txt", Day12(), 5756, 144603),
+        Arguments.of("day13.txt", Day13(), 682, DAY13P2.trim())
     )
 
     @ParameterizedTest
