@@ -49,8 +49,8 @@ class Day16 : Solution<ParsedInput> {
         .readLines()[0]
         .flatMap { it.toString().toInt(16).toString(2).padStart(4, '0').toList() }
 
-    override fun solvePart1(input: ParsedInput): Int {
-        var sum = 0
+    override fun solvePart1(input: ParsedInput): Long {
+        var sum = 0L
 
         val stack = ArrayDeque<Packet>()
         stack.addFirst(parsePacket(StringIterator(input)))
