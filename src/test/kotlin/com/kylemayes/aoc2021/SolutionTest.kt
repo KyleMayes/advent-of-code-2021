@@ -10,6 +10,7 @@ import com.kylemayes.aoc2021.day13.Day13
 import com.kylemayes.aoc2021.day14.Day14
 import com.kylemayes.aoc2021.day15.Day15
 import com.kylemayes.aoc2021.day16.Day16
+import com.kylemayes.aoc2021.day17.Day17
 import com.kylemayes.aoc2021.day2.Day2
 import com.kylemayes.aoc2021.day3.Day3
 import com.kylemayes.aoc2021.day4.Day4
@@ -54,6 +55,7 @@ class SolutionTest {
         Arguments.of("day14.txt", Day14(), 2874L, 5208377027195L),
         Arguments.of("day15.txt", Day15(), 745, 3002),
         Arguments.of("day16.txt", Day16(), 991L, 1264485568252L),
+        Arguments.of("day17.txt", Day17(), 3655, 1447),
     )
 
     @ParameterizedTest
