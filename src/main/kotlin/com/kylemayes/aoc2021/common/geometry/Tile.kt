@@ -40,17 +40,9 @@ class Tile<T> : Cloneable {
     // Read / Write
     // ===========================================
 
-    fun getOrNull(point: Point): T? {
-        return if (bounds.contains(point)) {
-            cells.getOrNull((point.y * bounds.width) + point.x)
-        } else {
-            null
-        }
-    }
-
     operator fun get(point: Point): T {
         assert(bounds.contains(point)) { "$point outside of tile bounds ($bounds)." }
-        return getOrNull(point)!!
+        return cells[(point.y * bounds.width) + point.x]
     }
 
     operator fun set(point: Point, value: T) {
@@ -67,7 +59,8 @@ class Tile<T> : Cloneable {
         assert(bounds.contains(point)) { "$point outside of tile bounds ($bounds)." }
         return point
             .neighbors(diagonal)
-            .mapNotNull { n -> getOrNull(n)?.let { v -> n to v } }
+            .filter { bounds.contains(it) }
+            .map { it to this[it] }
     }
 
     /** Returns this tile as a string where each row is a line and each value is a character. */
@@ -164,7 +157,7 @@ class Tile<T> : Cloneable {
     // Other
     // ===========================================
 
-    override fun clone() = Tile(bounds.width, bounds.height, cells)
+    public override fun clone() = Tile(bounds.width, bounds.height, cells)
 
     override fun equals(other: Any?) = other is Tile<*> && EqualsBuilder()
         .append(bounds, other.bounds)
