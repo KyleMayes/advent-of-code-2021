@@ -40,6 +40,10 @@ class Tile<T> : Cloneable {
     // Read / Write
     // ===========================================
 
+    fun getOrDefault(point: Point, default: T): T {
+        return cells.getOrElse((point.y * bounds.width) + point.x) { default }
+    }
+
     operator fun get(point: Point): T {
         assert(bounds.contains(point)) { "$point outside of tile bounds ($bounds)." }
         return cells[(point.y * bounds.width) + point.x]
@@ -61,6 +65,13 @@ class Tile<T> : Cloneable {
             .neighbors(diagonal)
             .filter { bounds.contains(it) }
             .map { it to this[it] }
+    }
+
+    /** Writes the entries from a tile onto this tile. */
+    fun blit(offset: Point, other: Tile<T>) {
+        for ((point, value) in other.entries()) {
+            this[point + offset] = value
+        }
     }
 
     /** Returns this tile as a string where each row is a line and each value is a character. */
