@@ -80,7 +80,7 @@ data class Point(val x: Int, val y: Int) : Comparable<Point> {
     operator fun plus(other: Point): Point = Point(x + other.x, y + other.y)
     operator fun minus(other: Point): Point = Point(x - other.x, y - other.y)
 
-    override fun compareTo(other: Point) = compareValuesBy(this, other, { x }, { y })
+    override fun compareTo(other: Point) = compareValuesBy(this, other, { it.x }, { it.y })
 
     override fun toString() = "($x, $y)"
 }
